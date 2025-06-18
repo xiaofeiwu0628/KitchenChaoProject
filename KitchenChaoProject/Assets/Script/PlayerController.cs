@@ -6,20 +6,25 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float turnSpeed = 10f;
-
+    [SerializeField] private GameInput gameInput;
     private bool isWalking = false;
 
     private void Update()
     {
-        Move();
+        
     }
 
-    private void Move()
+    private void FixedUpdate()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        HandleMovement();
+        HandleInteraction();
+    }
+
+    private void HandleMovement()
+    {
         
+        Vector3 direction = gameInput.GetMovementDirectionNormalized();
+
         isWalking = direction != Vector3.zero;
         transform.position += direction * Time.deltaTime * moveSpeed;
 
@@ -29,7 +34,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    private void HandleInteraction()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward, out hit,2f))
+        {
+            
+        }
+    }
 
 
     public bool GetIsWalking(){
