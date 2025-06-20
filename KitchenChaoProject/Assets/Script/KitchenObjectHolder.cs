@@ -12,6 +12,11 @@ public class KitchenObjectHolder : MonoBehaviour
         return kitchenObject;
     }
 
+    public KitchenObjectSO GetKitchenObjectSO()
+    {
+        return kitchenObject.GetKitchenObjectSO();
+    }
+
     public Transform GetHoldPoint()
     {
         return HoldPoint;
