@@ -12,7 +12,7 @@ public class ContainerCounter : BaseCounter
 
         coutainerCounterVisual.PlayOpen();
 
-        CreateKitchenObject(kitchenObjectSO.prefabe);
+        CreateKitchenObject(kitchenObjectSO.prefab);
 
         TransferKitchenObject(this, player);
     }

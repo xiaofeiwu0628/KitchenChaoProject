@@ -5,15 +5,16 @@ using UnityEngine;
 
 // 序列化
 [Serializable]
-public class cuttingRecipeSO
+public class CuttingRecipeSO
 {
     public KitchenObjectSO input;
     public KitchenObjectSO output;
+    public int cuttingCountMAX;
 }
 [CreateAssetMenu()]
 public class CuttingRecipeListSO : ScriptableObject
 {
-    public List<cuttingRecipeSO> list;
+    public List<CuttingRecipeSO> list;
 
     public KitchenObjectSO GetOutput(KitchenObjectSO input)
     {
@@ -25,5 +26,19 @@ public class CuttingRecipeListSO : ScriptableObject
             }
         }
         return null;
+    }
+
+    public bool TryGetCuttingRecipe(KitchenObjectSO input,out CuttingRecipeSO cuttingRecipe)
+    {
+        foreach (CuttingRecipeSO recipe in list)
+        {
+            if (recipe.input == input)
+            {
+                cuttingRecipe = recipe;
+                return true;
+            }
+        }
+        cuttingRecipe = null;
+        return false;
     }
 }
