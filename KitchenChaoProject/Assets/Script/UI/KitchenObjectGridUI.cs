@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class KitchenObjectGridUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private KitchenObjectIcanUI iconTemplateUI;
+
+    private void Start()
     {
-        
+        iconTemplateUI.Hide();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowKitchenObjectUI(KitchenObjectSO kitchenObjectSO)
     {
-        
+        KitchenObjectIcanUI _kitchenObjectIcanUI = Instantiate(iconTemplateUI, transform);
+        _kitchenObjectIcanUI.Show(kitchenObjectSO.sprite);
     }
 }

@@ -1,0 +1,117 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+public class OrderManager : MonoBehaviour
+{
+    #region 单例模式
+    public static OrderManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+    #endregion
+
+    // 订单变化事件
+    public event EventHandler OnRecipeSpawned;
+    // 送菜成功事件
+    public event EventHandler OnRecipeFailed;
+    // 送菜失败事件
+    public event EventHandler OnRecipeSuccessed;
+    
+
+    [SerializeField] private RecipeListSO recipleSOList;
+    [SerializeField] private int orderMAXCount = 5;
+    [SerializeField] private float orderRate = 2;
+
+    private List<RecipeSO> orderRecipeSOList = new List<RecipeSO>();
+
+    private int orderCount = 0;
+    private float orderTimer = 0;
+    private bool isStartOrder = true;
+
+    private void Update()
+    {
+
+        if (isStartOrder)
+        {
+            if (orderMAXCount <= orderCount) return;
+            OrderUpdate();
+        }
+    }
+
+    private void OrderUpdate()
+    {
+        orderTimer += Time.deltaTime;
+        if (orderTimer >= orderRate)
+        {
+            orderTimer = 0;
+            OrderANewRecipe();
+        }
+    }
+
+    private void OrderANewRecipe()
+    {
+        orderCount++;
+        int index = UnityEngine.Random.Range(0, recipleSOList.recipeSOList.Count);
+        orderRecipeSOList.Add(recipleSOList.recipeSOList[index]);
+        OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void DeliverRecipe(PlateKitchenObject _plateKitchenObject)
+    {
+        RecipeSO correctRecipe = null;
+        foreach (RecipeSO _recipe in orderRecipeSOList)
+        {
+            if (IsCorrect(_recipe, _plateKitchenObject))
+            {
+                correctRecipe = _recipe;
+                break;
+            }
+        }
+        if (correctRecipe == null)
+        {
+            Debug.Log("上菜失败");
+            OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            orderRecipeSOList.Remove(correctRecipe);
+            Debug.Log("上菜成功");
+            OnRecipeSuccessed?.Invoke(this, EventArgs.Empty);
+        }
+        OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
+    }
+
+    private bool IsCorrect(RecipeSO _recipe, PlateKitchenObject _plateKitchenObject)
+    {
+        List<KitchenObjectSO> list1 = _recipe.kitchenObjectSOList;
+        List<KitchenObjectSO> list2 = _plateKitchenObject.GetKitchenObjectSOLIst();
+
+        if (list1.Count != list2.Count) return false;
+
+        foreach (KitchenObjectSO kitchenObjectSO in list1)
+        {
+            if (list2.Contains(kitchenObjectSO) == false) return false;
+        }
+
+        return true;
+    }
+
+    public List<RecipeSO> GetOrderRecipeSOList()
+    {
+        return orderRecipeSOList;
+    }
+
+}

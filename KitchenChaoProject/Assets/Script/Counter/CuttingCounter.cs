@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CuttingCounter : BaseCounter
 {
+    public static event EventHandler OnRecipeCut;
+
     [SerializeField] private CuttingRecipeListSO cuttingRecipeList;
 
     [SerializeField] private ProgressBarUI progressBarUI;
@@ -62,6 +65,7 @@ public class CuttingCounter : BaseCounter
 
     public void Cut()
     {
+        OnRecipeCut?.Invoke(this, EventArgs.Empty);
         cuttingCount++;
         cuttingCounterVisual.PlayCut();
     }

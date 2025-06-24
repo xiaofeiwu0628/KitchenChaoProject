@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : KitchenObjectHolder
 {
+    #region 单例模式
     public static PlayerController Instance;
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class PlayerController : KitchenObjectHolder
         }
         DontDestroyOnLoad(gameObject);
     }
+    #endregion
 
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float turnSpeed = 10f;
@@ -39,7 +41,7 @@ public class PlayerController : KitchenObjectHolder
         selectedCounter?.InteractOperate(this);
     }
 
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
         selectedCounter?.Interact(this);
     }
