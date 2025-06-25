@@ -7,10 +7,11 @@ using UnityEngine;
 [Serializable]
 public class CuttingRecipeSO
 {
-    public KitchenObjectSO input;
+    public KitchenObjectSO input; 
     public KitchenObjectSO output;
     public int cuttingCountMAX;
 }
+
 [CreateAssetMenu()]
 public class CuttingRecipeListSO : ScriptableObject
 {

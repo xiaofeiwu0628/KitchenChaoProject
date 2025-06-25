@@ -69,4 +69,9 @@ public class CuttingCounter : BaseCounter
         cuttingCount++;
         cuttingCounterVisual.PlayCut();
     }
+
+    public new static void ClearStaticData()
+    {
+        OnRecipeCut = null;
+    }
 }

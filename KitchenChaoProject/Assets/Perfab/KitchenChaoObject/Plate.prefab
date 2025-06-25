@@ -71,6 +71,36 @@ PrefabInstance:
       propertyPath: iconImage
       value: 
       objectReference: {fileID: 3217359406314384174}
+    - target: {fileID: 5057741121033294372, guid: 368e464d14398664cb837c6a03600ebc,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057741121033294372, guid: 368e464d14398664cb837c6a03600ebc,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057741121033294372, guid: 368e464d14398664cb837c6a03600ebc,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057741121033294372, guid: 368e464d14398664cb837c6a03600ebc,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057741121033294372, guid: 368e464d14398664cb837c6a03600ebc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057741121033294372, guid: 368e464d14398664cb837c6a03600ebc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -20
+      objectReference: {fileID: 0}
     - target: {fileID: 5948561091267518318, guid: 368e464d14398664cb837c6a03600ebc,
         type: 3}
       propertyPath: m_Pivot.x
@@ -175,6 +205,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: KitchenObjectGridUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6792898919903433086, guid: 368e464d14398664cb837c6a03600ebc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446187265343605077, guid: 368e464d14398664cb837c6a03600ebc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -347,6 +387,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlateCompleteVisual
+      objectReference: {fileID: 0}
+    - target: {fileID: 408889407006782757, guid: 10e39c981f2de6441b54efde32ced8f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3550707550894988255, guid: 10e39c981f2de6441b54efde32ced8f0,
         type: 3}

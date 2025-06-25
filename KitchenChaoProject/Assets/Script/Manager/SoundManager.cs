@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
+using UnityEngine.UIElements;
 
 public class SoundManager : MonoBehaviour
 {
@@ -20,9 +21,11 @@ public class SoundManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
     #endregion
+
+    public const float soundVolume = .03f;
 
     [SerializeField] private AudioClipRefsSO audioClipRefsSO;
 
@@ -33,6 +36,14 @@ public class SoundManager : MonoBehaviour
         CuttingCounter.OnRecipeCut += CuttingCounter_OnRecipeCut;
         KitchenObjectHolder.OnDrop += KitchenObjectHolder_OnDrop;
         KitchenObjectHolder.OnPickup += KitchenObjectHolder_OnPickup;
+        TrashCounter.OnObjectTrashed += TrashCounter_OnObjectTrashed;
+    }
+
+    
+
+    private void TrashCounter_OnObjectTrashed(object sender, System.EventArgs e)
+    {
+        PlaySound(audioClipRefsSO.trash);
     }
 
     private void KitchenObjectHolder_OnPickup(object sender, System.EventArgs e)
@@ -60,14 +71,17 @@ public class SoundManager : MonoBehaviour
         PlaySound(audioClipRefsSO.deliverySuccess);
     }
 
+    public void PlayStepSound(float _volume = soundVolume)
+    {
+        PlaySound(audioClipRefsSO.footStep,_volume);
+    }
 
-
-    private void PlaySound(AudioClip[] _clips, float _volume = 0.7f)
+    private void PlaySound(AudioClip[] _clips, float _volume = soundVolume)
     {
         PlaySound(_clips, Camera.main.transform.position, _volume);
     }
 
-    private void PlaySound(AudioClip[] _clips, Vector3 _position, float _volume = 0.7f)
+    private void PlaySound(AudioClip[] _clips, Vector3 _position, float _volume = soundVolume)
     {
         int index = Random.Range(0, _clips.Length);
 

@@ -19,7 +19,7 @@ public class OrderManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
     }
     #endregion
 
@@ -29,7 +29,7 @@ public class OrderManager : MonoBehaviour
     public event EventHandler OnRecipeFailed;
     // 送菜失败事件
     public event EventHandler OnRecipeSuccessed;
-    
+
 
     [SerializeField] private RecipeListSO recipleSOList;
     [SerializeField] private int orderMAXCount = 5;
@@ -38,8 +38,23 @@ public class OrderManager : MonoBehaviour
     private List<RecipeSO> orderRecipeSOList = new List<RecipeSO>();
 
     private int orderCount = 0;
+    private int successDeliveryCount = 0;
+    private int failDeliveryCount = 0;
     private float orderTimer = 0;
-    private bool isStartOrder = true;
+    private bool isStartOrder = false;
+
+    private void Start()
+    {
+        GameManager.Instance.OnStateChanged += GameManager_OnStateChanger;
+    }
+
+    private void GameManager_OnStateChanger(object sender, EventArgs e)
+    {
+        if (GameManager.Instance.IsGamePlayingState())
+        {
+            StartSpawnOrder();
+        }
+    }
 
     private void Update()
     {
@@ -82,14 +97,16 @@ public class OrderManager : MonoBehaviour
         }
         if (correctRecipe == null)
         {
-            Debug.Log("上菜失败");
             OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+            failDeliveryCount++;
+            Debug.Log("上菜失败");
         }
         else
         {
             orderRecipeSOList.Remove(correctRecipe);
-            Debug.Log("上菜成功");
             OnRecipeSuccessed?.Invoke(this, EventArgs.Empty);
+            successDeliveryCount++;
+            Debug.Log("上菜成功");
         }
         OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
     }
@@ -114,4 +131,17 @@ public class OrderManager : MonoBehaviour
         return orderRecipeSOList;
     }
 
+    public void StartSpawnOrder()
+    {
+        isStartOrder = true;
+    }
+
+    public int GetSuccessDeliveryCount()
+    {
+        return successDeliveryCount;
+    }
+    public int GetFailDeliveryCount()
+    {
+        return failDeliveryCount;
+    }
 }

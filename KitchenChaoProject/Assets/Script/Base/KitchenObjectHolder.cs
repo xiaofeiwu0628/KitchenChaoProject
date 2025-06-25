@@ -34,7 +34,7 @@ public class KitchenObjectHolder : MonoBehaviour
         {
             OnDrop?.Invoke(this, EventArgs.Empty);
         }
-        else if(kitchenObject != _kitchenObject && _kitchenObject != null && this is PlayerController)
+        else if (kitchenObject != _kitchenObject && _kitchenObject != null && this is PlayerController)
         {
             OnPickup?.Invoke(this, EventArgs.Empty);
         }
@@ -94,5 +94,11 @@ public class KitchenObjectHolder : MonoBehaviour
     public bool IsHaveKitchenObject()
     {
         return kitchenObject != null;
+    }
+
+    public static void ClearStaticData()
+    {
+        OnDrop = null;
+        OnPickup = null;
     }
 }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 [CreateAssetMenu()]
 public class RecipeSO : ScriptableObject
 {
@@ -10,8 +12,4 @@ public class RecipeSO : ScriptableObject
     public List<KitchenObjectSO> kitchenObjectSOList;
 }
 
-[CreateAssetMenu()]
-public class RecipeListSO : ScriptableObject
-{
-    public List<RecipeSO> recipeSOList;
-}
+

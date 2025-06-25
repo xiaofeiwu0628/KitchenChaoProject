@@ -5,25 +5,6 @@ using UnityEngine;
 
 public class PlayerController : KitchenObjectHolder
 {
-    #region 单例模式
-    public static PlayerController Instance;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            if (Instance != this)
-            {
-                Destroy(gameObject);
-            }
-        }
-        DontDestroyOnLoad(gameObject);
-    }
-    #endregion
-
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float turnSpeed = 10f;
     [SerializeField] private GameInput gameInput;
